@@ -1,0 +1,35 @@
+# Ruby gem files
+*.gem
+.bundle/
+vendor/bundle
+Gemfile.lock
+
+# RSpec
+.rspec_status
+coverage/
+
+# Sorbet
+sorbet/rbi/gems/
+sorbet/rbi/hidden-definitions/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+pkg/
+tmp/
+
+# Documentation
+doc/
+.yardoc/
+
+# Keep models directory - it's bundled with the gem
+# DO NOT ignore models/
