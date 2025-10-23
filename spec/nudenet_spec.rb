@@ -46,7 +46,7 @@ RSpec.describe NudeNet do
         ]
 
         results = nude_images.map do |img|
-          all_detections = NudeNet.detect_from_path(img, min_prob: 0.25)
+          all_detections = NudeNet.detect_from_path(img, min_prob: 0.5)
           filtered_detections = all_detections.select { |d| explicit_labels.include?(d.label) }
           { path: File.basename(img), detections: filtered_detections }
         end
@@ -111,7 +111,7 @@ RSpec.describe NudeNet do
         ]
 
         results = safe_images.map do |img|
-          all_detections = NudeNet.detect_from_path(img, min_prob: 0.25)
+          all_detections = NudeNet.detect_from_path(img, min_prob: 0.5)
           filtered_detections = all_detections.select { |d| explicit_labels.include?(d.label) }
           { path: File.basename(img), detections: filtered_detections }
         end
@@ -135,7 +135,7 @@ RSpec.describe NudeNet do
         end
 
         # Allow 10% false positive rate (rounded down)
-        max_false_positives = (safe_images.length * 0.25).floor
+        max_false_positives = (safe_images.length * 0.1).floor
         false_positive_count = false_positives.length
         expect(false_positive_count).to be <= max_false_positives,
           "Expected at most #{max_false_positives} false positives (10% of #{safe_images.length}), got #{false_positive_count}"

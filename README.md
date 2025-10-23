@@ -56,7 +56,7 @@ results = NudeNet.detect_from_path('/path/to/image.jpg', mode: :slow)
 
 ### Custom Confidence Threshold
 
-Adjust the minimum confidence threshold (default: 0.25):
+Adjust the minimum confidence threshold (default: 0.5):
 
 ```ruby
 # Only return detections with confidence > 0.7 (fewer false positives)

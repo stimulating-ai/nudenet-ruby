@@ -20,7 +20,7 @@ module NudeNet
   #
   # @param image_uri [String] Path to image file (local path or file:// URI)
   # @param mode [Symbol, String] Detection mode - :slow or :fast
-  # @param min_prob [Float, nil] Minimum confidence threshold (default: 0.25)
+  # @param min_prob [Float, nil] Minimum confidence threshold (default: 0.5)
   # @param debug_logs_enabled [Boolean] Enable timing logs
   # @return [Array<Detection>] Array of detection results
   #
@@ -52,7 +52,7 @@ module NudeNet
   #
   # @param image_data [String] Binary image data (JPEG, PNG, etc.)
   # @param mode [Symbol, String] Detection mode - :slow or :fast
-  # @param min_prob [Float, nil] Minimum confidence threshold (default: 0.25)
+  # @param min_prob [Float, nil] Minimum confidence threshold (default: 0.5)
   # @param debug_logs_enabled [Boolean] Enable timing logs
   # @return [Array<Detection>] Array of detection results
   #
