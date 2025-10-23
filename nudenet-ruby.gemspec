@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = "AI-powered nudity detection for Ruby"
   spec.description = "A neural network powered library that detects nudity in images. Uses YOLOv8 ONNX models for fast, accurate detection of NSFW content. Ruby implementation of NudeNet."
-  spec.homepage = "https://github.com/yourusername/nudenet-ruby"
+  spec.homepage = "https://github.com/stimulating-ai/nudenet-ruby"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"
 
