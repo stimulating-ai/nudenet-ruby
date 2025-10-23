@@ -1,8 +1,8 @@
-# Implementation Notes - ifnude Ruby Gem
+# Implementation Notes - NudeNet Ruby Gem
 
 ## Overview
 
-Successfully converted Python ifnude library to a production-ready Ruby gem with Sorbet type safety.
+Successfully converted Python NudeNet library to a production-ready Ruby gem with Sorbet type safety.
 
 ## Key Features Implemented
 
@@ -37,7 +37,7 @@ Successfully converted Python ifnude library to a production-ready Ruby gem with
 ### File Structure
 
 ```
-lib/ifnude/
+lib/NudeNet/
 ├── version.rb              # Gem version (1.0.0)
 ├── types.rb                # Sorbet type aliases
 ├── detection.rb            # Detection result struct
@@ -50,7 +50,7 @@ models/
 
 spec/
 ├── spec_helper.rb
-├── ifnude_spec.rb          # Main API tests
+├── NudeNet_spec.rb          # Main API tests
 ├── detector_spec.rb        # Thread safety tests
 ├── image_preprocessor_spec.rb
 └── detection_spec.rb
@@ -68,7 +68,7 @@ spec/
 ### Main Interface
 
 ```ruby
-Ifnude.detect(image, mode: :default, min_prob: nil)
+NudeNet.detect(image, mode: :default, min_prob: nil)
 ```
 
 ### Parameters
@@ -79,7 +79,7 @@ Ifnude.detect(image, mode: :default, min_prob: nil)
 
 ### Return Value
 
-Array of `Ifnude::Detection` structs:
+Array of `NudeNet::Detection` structs:
 
 - `box`: [x1, y1, x2, y2] coordinates
 - `score`: Confidence (0.0-1.0)
@@ -90,7 +90,7 @@ Array of `Ifnude::Detection` structs:
 ```ruby
 # In Detector class
 def self.thread_session
-  Thread.current[:ifnude_session] ||= create_session
+  Thread.current[:NudeNet_session] ||= create_session
 end
 ```
 
@@ -214,7 +214,7 @@ config.eager_load_paths << Rails.root.join('lib')
 # In controller
 class ContentModerationController < ApplicationController
   def check_image
-    results = Ifnude.detect(params[:image].path)
+    results = NudeNet.detect(params[:image].path)
     render json: results.map(&:to_h)
   end
 end
@@ -230,8 +230,6 @@ end
 
 ## Credits & License
 
-- **Original Python**: s0md3v/ifnude
-- **Model Source**: s0md3v/nudity-checker (HuggingFace)
 - **Ruby Port**: Custom implementation
 - **License**: MIT
 
@@ -240,20 +238,20 @@ end
 ### Building the Gem
 
 ```bash
-gem build ifnude.gemspec
-# Creates ifnude-1.0.0.gem (~140MB)
+gem build nudenet-ruby.gemspec
+# Creates nudenet-ruby-1.0.0.gem (~140MB)
 ```
 
 ### Installing Locally
 
 ```bash
-gem install ./ifnude-1.0.0.gem
+gem install ./nudenet-ruby-1.0.0.gem
 ```
 
 ### Publishing to RubyGems
 
 ```bash
-gem push ifnude-1.0.0.gem
+gem push nudenet-ruby-1.0.0.gem
 ```
 
 Note: Large gem size may require special consideration for hosting.

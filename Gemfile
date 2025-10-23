@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in ifnude.gemspec
+# Specify your gem's dependencies in nudenet-ruby.gemspec
 gemspec
 
 gem "rake", "~> 13.2"
