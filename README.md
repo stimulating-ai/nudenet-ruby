@@ -35,37 +35,51 @@ Or install it yourself as:
 ```ruby
 require 'nudenet-ruby'
 
-results = NudeNet.detect('/path/to/image.jpg')
+results = NudeNet.detect_from_path('/path/to/image.jpg')
 results.each do |detection|
   puts "Found #{detection.label} with confidence #{detection.score}"
   puts "Location: #{detection.box}"
 end
 ```
 
-### Fast Mode
+### Detection Modes
 
-Use fast mode for 3x speed with slightly lower accuracy:
+Fast mode (default) provides 2-3x speed with good accuracy. Use slow mode for maximum accuracy:
 
 ```ruby
-results = NudeNet.detect('/path/to/image.jpg', mode: :fast)
+# Fast mode (default)
+results = NudeNet.detect_from_path('/path/to/image.jpg', mode: :fast)
+
+# Slow mode (more accurate)
+results = NudeNet.detect_from_path('/path/to/image.jpg', mode: :slow)
 ```
 
 ### Custom Confidence Threshold
 
+Adjust the minimum confidence threshold (default: 0.25):
+
 ```ruby
-# Only return detections with confidence > 0.7
-results = NudeNet.detect('/path/to/image.jpg', min_prob: 0.7)
+# Only return detections with confidence > 0.7 (fewer false positives)
+results = NudeNet.detect_from_path('/path/to/image.jpg', min_prob: 0.7)
+
+# Lower threshold for higher sensitivity (more detections)
+results = NudeNet.detect_from_path('/path/to/image.jpg', min_prob: 0.15)
 ```
 
-### With MiniMagick
+### Detect from Binary Data
 
-You can also pass a MiniMagick image object:
+You can also detect from binary image data (useful for URLs, uploads, etc.):
 
 ```ruby
-require 'mini_magick'
+require 'open-uri'
 
-image = MiniMagick::Image.open('/path/to/image.jpg')
-results = NudeNet.detect(image)
+# From URL
+image_data = URI.open('https://example.com/image.jpg').read
+results = NudeNet.detect_image_data(image_data)
+
+# From file upload
+image_data = File.binread('/path/to/image.jpg')
+results = NudeNet.detect_image_data(image_data)
 ```
 
 ## Output Format
@@ -97,7 +111,7 @@ This gem is designed to be thread-safe for use in API servers. Each thread maint
 ```ruby
 # Safe in multi-threaded environments
 10.times.map do
-  Thread.new { NudeNet.detect('image.jpg') }
+  Thread.new { NudeNet.detect_from_path('image.jpg') }
 end.each(&:join)
 ```
 
@@ -111,7 +125,7 @@ end.each(&:join)
 ## Requirements
 
 - Ruby >= 3.0.0
-- ImageMagick (for MiniMagick)
+- libvips >= 8.0 (for image processing)
 
 ## Development
 
@@ -128,7 +142,7 @@ To install this gem onto your local machine, run `bundle exec rake install`.
 
 ## Credits
 
-This is a Ruby port of the Python [nudenet-ruby](https://github.com/s0md3v/nudenet-ruby) library, which itself is a fork of [NudeNet](https://pypi.org/project/NudeNet/). The ONNX model is sourced from [s0md3v/nudity-checker](https://huggingface.co/s0md3v/nudity-checker) on HuggingFace.
+This is a Ruby port of NudeNet. The ONNX model is sourced from [notAI-tech/NudeNet](https://github.com/notAI-tech/NudeNet/releases).
 
 ## License
 
