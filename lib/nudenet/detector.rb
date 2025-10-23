@@ -28,8 +28,8 @@ module NudeNet
       # Get or create thread-local session
       session = thread_session
 
-      # Set default min_prob based on mode
-      min_prob ||= (mode.to_sym == :fast ? 0.5 : 0.6)
+      # Set default min_prob
+      min_prob ||= 0.25
 
       # Preprocess image from path
       preprocess_start = Time.now
@@ -59,8 +59,8 @@ module NudeNet
       # Get or create thread-local session
       session = thread_session
 
-      # Set default min_prob based on mode
-      min_prob ||= (mode.to_sym == :fast ? 0.5 : 0.6)
+      # Set default min_prob
+      min_prob ||= 0.25
 
       # Preprocess image from binary data
       preprocess_start = Time.now

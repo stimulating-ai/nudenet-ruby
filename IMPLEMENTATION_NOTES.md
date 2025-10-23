@@ -66,7 +66,7 @@ Ifnude.detect(image, mode: :default, min_prob: nil)
 ### Parameters
 - `image`: String path or MiniMagick::Image object
 - `mode`: `:default` or `:fast`
-- `min_prob`: Float (0.0-1.0), defaults based on mode
+- `min_prob`: Float (0.0-1.0), defaults to 0.25
 
 ### Return Value
 Array of `Ifnude::Detection` structs:
