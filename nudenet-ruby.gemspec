@@ -22,8 +22,6 @@ Gem::Specification.new do |spec|
   spec.files = Dir[
     "lib/**/*.rb",
     "models/**/*",
-    "sorbet/**/*",
-    "sig/**/*",
     "LICENSE.md",
     "README.md"
   ]
