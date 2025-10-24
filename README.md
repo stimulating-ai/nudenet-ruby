@@ -1,8 +1,8 @@
 # NudeNet Ruby - Fast nudity detection
 
-A neural network powered Ruby gem that detects nudity in images of both real humans and drawings. It takes an image as input and tells you exactly what NSFW parts of the body are visible.
+A neural network powered Ruby gem that detects nudity in images of both real humans and drawings. It takes an image as input and tells you exactly what NSFW parts of the body are visible. Runs in 0.06s for a 2 MP image.
 
-<img src="https://i.imgur.com/0KPJbl9.jpg" width=600>
+Note: This library works but isn't maintained beyond our own purposes. Please fork it and make any changes you need.
 
 ## Features
 
@@ -17,7 +17,7 @@ A neural network powered Ruby gem that detects nudity in images of both real hum
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'nudenet-ruby'
+gem "nudenet-ruby", git: "https://github.com/stimulating-ai/nudenet-ruby"
 ```
 
 And then execute:
@@ -96,13 +96,26 @@ Each detection is an `NudeNet::Detection` struct with:
 
 ### Possible Labels
 
-- `EXPOSED_BREAST_F` - Female breast
-- `EXPOSED_BREAST_M` - Male breast
-- `EXPOSED_BUTTOCKS` - Buttocks
-- `EXPOSED_GENITALIA_F` - Female genitalia
-- `EXPOSED_GENITALIA_M` - Male genitalia
-
-Note: `EXPOSED_BELLY` is filtered out by default.
+```
+FEMALE_GENITALIA_COVERED
+FACE_FEMALE
+BUTTOCKS_EXPOSED
+FEMALE_BREAST_EXPOSED
+FEMALE_GENITALIA_EXPOSED
+MALE_BREAST_EXPOSED
+ANUS_EXPOSED
+FEET_EXPOSED
+BELLY_COVERED
+FEET_COVERED
+ARMPITS_COVERED
+ARMPITS_EXPOSED
+FACE_MALE
+BELLY_EXPOSED
+MALE_GENITALIA_EXPOSED
+ANUS_COVERED
+FEMALE_BREAST_COVERED
+BUTTOCKS_COVERED
+```
 
 ## Thread Safety
 
@@ -114,13 +127,6 @@ This gem is designed to be thread-safe for use in API servers. Each thread maint
   Thread.new { NudeNet.detect_from_path('image.jpg') }
 end.each(&:join)
 ```
-
-## Performance
-
-- **Slow mode**: ~50-150ms per image (after initial load)
-- **Fast mode**: ~30-50ms per image
-- **First request per thread**: ~100-200ms (model initialization)
-- **Memory per thread**: ~200-300MB
 
 ## Requirements
 
