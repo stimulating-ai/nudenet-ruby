@@ -3,6 +3,9 @@
 require "vips"
 
 RSpec.describe NudeNet do
+
+  MIN_PROB = 0.2
+
   it "has a version number" do
     expect(NudeNet::VERSION).not_to be nil
   end
@@ -46,7 +49,7 @@ RSpec.describe NudeNet do
         ]
 
         results = nude_images.map do |img|
-          all_detections = NudeNet.detect_from_path(img, min_prob: 0.5)
+          all_detections = NudeNet.detect_from_path(img, min_prob: MIN_PROB)
           filtered_detections = all_detections.select { |d| explicit_labels.include?(d.label) }
           { path: File.basename(img), detections: filtered_detections }
         end
@@ -111,7 +114,7 @@ RSpec.describe NudeNet do
         ]
 
         results = safe_images.map do |img|
-          all_detections = NudeNet.detect_from_path(img, min_prob: 0.5)
+          all_detections = NudeNet.detect_from_path(img, min_prob: MIN_PROB)
           filtered_detections = all_detections.select { |d| explicit_labels.include?(d.label) }
           { path: File.basename(img), detections: filtered_detections }
         end

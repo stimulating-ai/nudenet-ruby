@@ -65,9 +65,28 @@ module NudeNet
       largest_side = [width, height].max
       scale = [scale, max_side.to_f / largest_side].min if largest_side * scale > max_side
 
-      # Vips resize: scale is the resize factor
-      resized = @image.resize(scale, kernel: :linear)
+      # Calculate target dimensions
+      new_width = (width * scale).round
+      new_height = (height * scale).round
 
+      # YOLOv8 requires dimensions divisible by 32 (stride)
+      # Round down to nearest multiple of 32
+      new_width = (new_width / 32) * 32
+      new_height = (new_height / 32) * 32
+
+      # Ensure minimum size of 32x32
+      new_width = [new_width, 32].max
+      new_height = [new_height, 32].max
+
+      # Calculate scale factors for exact dimensions
+      scale_x = new_width.to_f / width
+      scale_y = new_height.to_f / height
+
+      # Resize to exact dimensions
+      resized = @image.resize(scale_x, vscale: scale_y, kernel: :linear)
+
+      # Use the original scale for bounding box coordinate scaling
+      # (this maintains the aspect ratio logic from before)
       [resized, scale]
     end
 
