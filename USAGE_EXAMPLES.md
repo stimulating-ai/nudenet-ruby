@@ -9,7 +9,7 @@ Detect nudity from a local file path.
 **Parameters:**
 
 - `image_uri` (String) - Local file path to image
-- `mode` (Symbol) - `:fast` (default) or `:slow`
+- `mode` (NudeNet::Mode) - `NudeNet::Mode::Fast` (default) or `NudeNet::Mode::Slow`
 - `min_prob` (Float) - Minimum confidence threshold (default: 0.5)
 - `debug_logs_enabled` (Boolean) - Enable timing logs (default: false)
 
@@ -24,7 +24,7 @@ Detect nudity from binary image data (JPEG, PNG, etc.).
 **Parameters:**
 
 - `image_data` (String) - Binary image data
-- `mode` (Symbol) - `:fast` (default) or `:slow`
+- `mode` (NudeNet::Mode) - `NudeNet::Mode::Fast` (default) or `NudeNet::Mode::Slow`
 - `min_prob` (Float) - Minimum confidence threshold (default: 0.5)
 - `debug_logs_enabled` (Boolean) - Enable timing logs (default: false)
 

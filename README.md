@@ -48,10 +48,10 @@ Fast mode (default) provides 2-3x speed with good accuracy. Use slow mode for ma
 
 ```ruby
 # Fast mode (default)
-results = NudeNet.detect_from_path('/path/to/image.jpg', mode: :fast)
+results = NudeNet.detect_from_path('/path/to/image.jpg', mode: NudeNet::Mode::FAST)
 
 # Slow mode (more accurate)
-results = NudeNet.detect_from_path('/path/to/image.jpg', mode: :slow)
+results = NudeNet.detect_from_path('/path/to/image.jpg', mode: NudeNet::Mode::SLOW)
 ```
 
 ### Custom Confidence Threshold

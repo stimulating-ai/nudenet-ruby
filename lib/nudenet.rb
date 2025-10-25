@@ -19,7 +19,7 @@ module NudeNet
   # Detect nudity in an image from a file path or URI
   #
   # @param image_uri [String] Path to image file (local path or file:// URI)
-  # @param mode [Symbol, String] Detection mode - :slow or :fast
+  # @param mode [Mode] Detection mode - Mode::Slow or Mode::Fast
   # @param min_prob [Float, nil] Minimum confidence threshold (default: 0.5)
   # @param debug_logs_enabled [Boolean] Enable timing logs
   # @return [Array<Detection>] Array of detection results
@@ -31,7 +31,7 @@ module NudeNet
   #   end
   #
   # @example Fast mode
-  #   results = NudeNet.detect_from_path('/path/to/image.jpg', mode: :fast)
+  #   results = NudeNet.detect_from_path('/path/to/image.jpg', mode: NudeNet::Mode::Fast)
   #
   # @example Custom threshold
   #   results = NudeNet.detect_from_path('/path/to/image.jpg', min_prob: 0.7)
@@ -39,19 +39,19 @@ module NudeNet
   sig do
     params(
       image_uri: String,
-      mode: Mode,
+      mode: NudeNet::Mode,
       min_prob: T.nilable(Float),
       debug_logs_enabled: T::Boolean
     ).returns(T::Array[Detection])
   end
-  def self.detect_from_path(image_uri, mode: :fast, min_prob: nil, debug_logs_enabled: false)
+  def self.detect_from_path(image_uri, mode: NudeNet::Mode::FAST, min_prob: nil, debug_logs_enabled: false)
     Detector.detect_from_path(image_uri, mode: mode, min_prob: min_prob, debug_logs_enabled: debug_logs_enabled)
   end
 
   # Detect nudity in an image from binary data
   #
   # @param image_data [String] Binary image data (JPEG, PNG, etc.)
-  # @param mode [Symbol, String] Detection mode - :slow or :fast
+  # @param mode [Mode] Detection mode - Mode::Slow or Mode::Fast
   # @param min_prob [Float, nil] Minimum confidence threshold (default: 0.5)
   # @param debug_logs_enabled [Boolean] Enable timing logs
   # @return [Array<Detection>] Array of detection results
@@ -68,12 +68,12 @@ module NudeNet
   sig do
     params(
       image_data: String,
-      mode: Mode,
+      mode: NudeNet::Mode,
       min_prob: T.nilable(Float),
       debug_logs_enabled: T::Boolean
     ).returns(T::Array[Detection])
   end
-  def self.detect_image_data(image_data, mode: :fast, min_prob: nil, debug_logs_enabled: false)
+  def self.detect_image_data(image_data, mode: NudeNet::Mode::FAST, min_prob: nil, debug_logs_enabled: false)
     Detector.detect_from_binary(image_data, mode: mode, min_prob: min_prob, debug_logs_enabled: debug_logs_enabled)
   end
 

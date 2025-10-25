@@ -79,8 +79,8 @@ test_image = Dir.glob("spec/fixtures/nude/*.jpg").first
 if test_image
   require "benchmark"
 
-  default_time = Benchmark.realtime { NudeNet.detect_from_path(test_image, mode: :slow) }
-  fast_time = Benchmark.realtime { NudeNet.detect_from_path(test_image, mode: :fast) }
+  default_time = Benchmark.realtime { NudeNet.detect_from_path(test_image, mode: NudeNet::Mode::SLOW) }
+  fast_time = Benchmark.realtime { NudeNet.detect_from_path(test_image, mode: NudeNet::Mode::FAST) }
 
   puts "  Slow mode:    #{(default_time * 1000).round(1)}ms"
   puts "  Fast mode:    #{(fast_time * 1000).round(1)}ms"

@@ -6,7 +6,7 @@ RSpec.describe NudeNet::ImagePreprocessor do
   describe "#preprocess" do
     context "with default mode" do
       it "returns preprocessed image and scale" do
-        preprocessor = described_class.new(test_image_path, mode: :slow)
+        preprocessor = described_class.new(test_image_path, mode: NudeNet::Mode::Slow)
         image, scale = preprocessor.preprocess
 
         expect(image).to be_a(Numo::SFloat)
@@ -17,7 +17,7 @@ RSpec.describe NudeNet::ImagePreprocessor do
       end
 
       it "resizes to max 1333 on longest side" do
-        preprocessor = described_class.new(test_image_path, mode: :slow)
+        preprocessor = described_class.new(test_image_path, mode: NudeNet::Mode::Slow)
         image, _scale = preprocessor.preprocess
 
         expect([image.shape[1], image.shape[2]].max).to be <= 1333
@@ -26,7 +26,7 @@ RSpec.describe NudeNet::ImagePreprocessor do
 
     context "with fast mode" do
       it "resizes to max 320 on longest side" do
-        preprocessor = described_class.new(test_image_path, mode: :fast)
+        preprocessor = described_class.new(test_image_path, mode: NudeNet::Mode::Fast)
         image, _scale = preprocessor.preprocess
 
         expect([image.shape[1], image.shape[2]].max).to be <= 320

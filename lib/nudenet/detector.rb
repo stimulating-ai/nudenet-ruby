@@ -19,12 +19,12 @@ module NudeNet
     sig do
       params(
         image_path: String,
-        mode: Mode,
+        mode: NudeNet::Mode,
         min_prob: T.nilable(Float),
         debug_logs_enabled: T::Boolean
       ).returns(T::Array[Detection])
     end
-    def self.detect_from_path(image_path, mode: :fast, min_prob: nil, debug_logs_enabled: false)
+    def self.detect_from_path(image_path, mode: NudeNet::Mode::FAST, min_prob: nil, debug_logs_enabled: false)
       # Get or create thread-local session
       session = thread_session
 
@@ -50,14 +50,17 @@ module NudeNet
     sig do
       params(
         image_binary: String,
-        mode: Mode,
+        mode: NudeNet::Mode,
         min_prob: T.nilable(Float),
         debug_logs_enabled: T::Boolean
       ).returns(T::Array[Detection])
     end
-    def self.detect_from_binary(image_binary, mode: :fast, min_prob: 0.5, debug_logs_enabled: false)
+    def self.detect_from_binary(image_binary, mode: NudeNet::Mode::FAST, min_prob: nil, debug_logs_enabled: false)
       # Get or create thread-local session
       session = thread_session
+
+      # Set default min_prob
+      min_prob ||= 0.5
 
       # Preprocess image from binary data
       preprocess_start = Time.now
@@ -68,7 +71,7 @@ module NudeNet
 
       # Run inference
       inference_start = Time.now
-      result = run_inference(session, image_data, scale, T.must(min_prob))
+      result = run_inference(session, image_data, scale, min_prob)
       inference_time = ((Time.now - inference_start) * 1000).round(1)
       puts "[NudeNet] Inference: #{inference_time}ms" if debug_logs_enabled
 

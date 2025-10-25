@@ -9,14 +9,14 @@ module NudeNet
   class ImagePreprocessor
     extend T::Sig
 
-    sig { params(image: T.any(String, Vips::Image), mode: Mode).void }
-    def initialize(image, mode: :slow)
+    sig { params(image: T.any(String, Vips::Image), mode: NudeNet::Mode).void }
+    def initialize(image, mode: NudeNet::Mode::SLOW)
       @image = T.let(load_image(image), Vips::Image)
-      @mode = T.let(mode, Mode)
+      @mode = T.let(mode, NudeNet::Mode)
     end
 
-    sig { params(binary_data: String, mode: Mode).returns(ImagePreprocessor) }
-    def self.new_from_binary(binary_data, mode: :slow)
+    sig { params(binary_data: String, mode: NudeNet::Mode).returns(ImagePreprocessor) }
+    def self.new_from_binary(binary_data, mode: NudeNet::Mode::SLOW)
       # Create Vips image from binary data
       image = Vips::Image.new_from_buffer(binary_data, "")
       preprocessor = allocate
@@ -54,7 +54,7 @@ module NudeNet
 
     sig { returns([Vips::Image, Float]) }
     def resize_image
-      min_side, max_side = @mode.to_sym == :fast ? [320, 320] : [800, 1333]
+      min_side, max_side = @mode == NudeNet::Mode::FAST ? [320, 320] : [800, 1333]
 
       width = @image.width
       height = @image.height

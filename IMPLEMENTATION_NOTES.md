@@ -68,13 +68,13 @@ spec/
 ### Main Interface
 
 ```ruby
-NudeNet.detect(image, mode: :default, min_prob: nil)
+NudeNet.detect_from_path(image, mode: NudeNet::Mode::Fast, min_prob: 0.5)
 ```
 
 ### Parameters
 
-- `image`: String path or MiniMagick::Image object
-- `mode`: `:default` or `:fast`
+- `image`: String path to image file
+- `mode`: `NudeNet::Mode::Fast` (default) or `NudeNet::Mode::Slow`
 - `min_prob`: Float (0.0-1.0), defaults to 0.5
 
 ### Return Value
